@@ -1,4 +1,4 @@
-package org.organizacija;
+package org.biblioteka;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

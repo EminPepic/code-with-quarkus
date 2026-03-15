@@ -1,4 +1,4 @@
-package org.organizacija;
+package org.biblioteka;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 

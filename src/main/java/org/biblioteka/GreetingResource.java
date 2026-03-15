@@ -1,4 +1,4 @@
-package org.organizacija;
+package org.biblioteka;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
