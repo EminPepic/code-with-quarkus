@@ -1,4 +1,4 @@
-package org.organizacija;
+package org.biblioteka;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
