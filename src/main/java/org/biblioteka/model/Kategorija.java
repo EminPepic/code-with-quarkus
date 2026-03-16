@@ -1,4 +1,4 @@
-package org.biblioteka;
+package org.biblioteka.model;
 
 import java.util.List;
 

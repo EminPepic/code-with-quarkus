@@ -1,15 +1,15 @@
-package org.biblioteka;
+package org.biblioteka.resource;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import java.util.List;
+import org.biblioteka.model.Student;
+import org.biblioteka.service.StudentService;
 
-@Path("/students")
+@Path("/student")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class StudentResource {
@@ -17,15 +17,9 @@ public class StudentResource {
     @Inject
     StudentService studentService;
 
-    // Upis novog studenta
     @POST
-    public void addStudent(Student student) {
-        studentService.addStudent(student);
-    }
-
-    // Dohvat svih studenata
-    @GET
-    public List<Student> getStudents() {
-        return studentService.getAllStudents();
+    @Path("/addStudent")
+    public Student addStudent(Student student) {
+        return studentService.createStudent(student);
     }
 }
