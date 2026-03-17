@@ -11,10 +11,13 @@ class GreetingResourceTest {
     @Test
     void testHelloEndpoint() {
         given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)
-             .body(is("Hello from Quarkus REST"));
+            .contentType("application/json")
+            .body("{\"ime\":\"Test\",\"prezime\":\"User\"}")
+            .when().post("/student/addStudent")
+            .then()
+            .statusCode(200)
+            .body("ime", is("Test"))
+            .body("prezime", is("User"));
     }
 
 }
