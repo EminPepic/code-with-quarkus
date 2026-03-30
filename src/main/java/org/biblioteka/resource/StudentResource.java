@@ -9,6 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import org.biblioteka.exception.StudentException;
 import org.biblioteka.model.Phone;
@@ -36,6 +37,7 @@ public class StudentResource {
 
     @GET
     @Path("/getAllStudents")
+    @Transactional
     public Response getAllStudents() {
         List<Student> students;
         try {
@@ -48,6 +50,7 @@ public class StudentResource {
 
     @GET
     @Path("/getStudentByName")
+    @Transactional
     public Response getStudentByName(@QueryParam("name") String name) {
         List<Student> students = studentService.getStudentByName(name);
         return Response.ok().entity(students).build();
@@ -55,6 +58,7 @@ public class StudentResource {
 
     @GET
     @Path("/getPhonesByStudentId")
+    @Transactional
     public Response getPhonesByStudentId(@QueryParam("id") Long id) {
         List<Phone> phones = studentService.getPhonesByStudentId(id);
         return Response.ok().entity(phones).build();

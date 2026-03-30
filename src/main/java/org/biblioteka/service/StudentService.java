@@ -32,8 +32,10 @@ public class StudentService {
 
     @Transactional
     public List<Student> getAllStudents() throws StudentException {
-        List<Student> students =
-            em.createNamedQuery(Student.GET_ALL_STUDENTS, Student.class).getResultList();
+        List<Student> students = em.createQuery(
+                "select distinct s from Student s left join fetch s.adresa",
+                Student.class)
+            .getResultList();
         if (students.isEmpty()) {
             throw new StudentException("Nema studenata.");
         }
@@ -42,7 +44,9 @@ public class StudentService {
 
     @Transactional
     public List<Student> getStudentByName(String ime) {
-        return em.createNamedQuery(Student.GET_STUDENT_BY_NAME, Student.class)
+        return em.createQuery(
+                "select distinct s from Student s left join fetch s.adresa where s.ime = :imeS",
+                Student.class)
             .setParameter("imeS", ime)
             .getResultList();
     }
