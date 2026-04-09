@@ -1,5 +1,6 @@
 package org.biblioteka.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -11,10 +12,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.biblioteka.exception.StudentException;
 import org.biblioteka.model.Phone;
 import org.biblioteka.model.Student;
 import org.biblioteka.service.StudentService;
+import io.quarkus.security.identity.SecurityIdentity;
 
 @Path("/student")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,8 +27,12 @@ public class StudentResource {
     @Inject
     StudentService studentService;
 
+    @Inject
+    SecurityIdentity securityIdentity;
+
     @POST
     @Path("/addStudent")
+    @RolesAllowed("Admin")
     public Response addStudent(Student student) {
         try {
             studentService.createStudent(student);
