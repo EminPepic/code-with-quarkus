@@ -44,6 +44,11 @@ public class Student {
     @JoinColumn(name = "adresa_id")
     private Adresa adresa;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private List<VremenskaZona> vremenskeZone = new ArrayList<>();
+
     public Student() {
     }
 
@@ -91,6 +96,14 @@ public class Student {
 
     public void setAdresa(Adresa adresa) {
         this.adresa = adresa;
+    }
+
+    public List<VremenskaZona> getVremenskeZone() {
+        return vremenskeZone;
+    }
+
+    public void setVremenskeZone(List<VremenskaZona> vremenskeZone) {
+        this.vremenskeZone = vremenskeZone;
     }
 
     @Override

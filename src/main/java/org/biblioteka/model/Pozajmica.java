@@ -1,6 +1,6 @@
 package org.biblioteka.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,9 +15,9 @@ import java.util.Objects;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Pozajmica.GET_ALL_POZAJMICE, query = "Select p from Pozajmica p"),
-    @NamedQuery(name = Pozajmica.GET_POZAJMICE_BY_STUDENT_ID, query = "Select p from Pozajmica p where p.student.id = :id"),
-    @NamedQuery(name = Pozajmica.GET_POZAJMICE_BY_DATUM, query = "Select p from Pozajmica p where p.datum = :datum")
+    @NamedQuery(name = Pozajmica.GET_ALL_POZAJMICE, query = "Select p from Pozajmica p left join fetch p.knjiga"),
+    @NamedQuery(name = Pozajmica.GET_POZAJMICE_BY_STUDENT_ID, query = "Select p from Pozajmica p left join fetch p.knjiga where p.student.id = :id"),
+    @NamedQuery(name = Pozajmica.GET_POZAJMICE_BY_DATUM, query = "Select p from Pozajmica p left join fetch p.knjiga where p.datum = :datum")
 })
 public class Pozajmica {
 
@@ -32,7 +32,7 @@ public class Pozajmica {
 
     private String datum;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student student;

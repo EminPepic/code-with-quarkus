@@ -5,7 +5,9 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import org.biblioteka.model.Knjiga;
 import org.biblioteka.model.Pozajmica;
+import org.biblioteka.model.Student;
 
 @Dependent
 public class PozajmicaService {
@@ -15,7 +17,24 @@ public class PozajmicaService {
 
     @Transactional
     public Pozajmica createPozajmica(Pozajmica pozajmica) {
-        return em.merge(pozajmica);
+        if (pozajmica != null) {
+            if (pozajmica.getKnjiga() != null && pozajmica.getKnjiga().getId() != null) {
+                Knjiga knjigaRef = em.getReference(Knjiga.class, pozajmica.getKnjiga().getId());
+                pozajmica.setKnjiga(knjigaRef);
+            }
+            if (pozajmica.getStudent() != null && pozajmica.getStudent().getId() != null) {
+                Student studentRef = em.getReference(Student.class, pozajmica.getStudent().getId());
+                pozajmica.setStudent(studentRef);
+            }
+        }
+
+        Pozajmica saved = em.merge(pozajmica);
+
+        return em.createQuery(
+                "select p from Pozajmica p left join fetch p.knjiga where p.id = :id",
+                Pozajmica.class)
+            .setParameter("id", saved.getId())
+            .getSingleResult();
     }
 
     @Transactional
