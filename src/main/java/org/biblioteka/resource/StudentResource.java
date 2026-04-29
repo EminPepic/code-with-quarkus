@@ -70,4 +70,5 @@ public class StudentResource {
         List<Phone> phones = studentService.getPhonesByStudentId(id);
         return Response.ok().entity(phones).build();
     }
+
 }

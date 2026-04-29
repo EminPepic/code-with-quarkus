@@ -49,6 +49,11 @@ public class Student {
     @JoinColumn(name = "student_id")
     private List<VremenskaZona> vremenskeZone = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private List<CurrencyResponse> currencyResponses = new ArrayList<>();
+
     public Student() {
     }
 
@@ -104,6 +109,14 @@ public class Student {
 
     public void setVremenskeZone(List<VremenskaZona> vremenskeZone) {
         this.vremenskeZone = vremenskeZone;
+    }
+
+    public List<CurrencyResponse> getCurrencyResponses() {
+        return currencyResponses;
+    }
+
+    public void setCurrencyResponses(List<CurrencyResponse> currencyResponses) {
+        this.currencyResponses = currencyResponses;
     }
 
     @Override

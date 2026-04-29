@@ -170,4 +170,5 @@ public class VremenskaZona {
     public void setDstActive(boolean dstActive) {
         this.dstActive = dstActive;
     }
+
 }
