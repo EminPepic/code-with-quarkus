@@ -44,6 +44,14 @@ public class Knjiga {
     )
     private List<Kategorija> kategorije = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "knjiga_uploaded_file",
+        joinColumns = @JoinColumn(name = "knjiga_id"),
+        inverseJoinColumns = @JoinColumn(name = "uploaded_file_id")
+    )
+    private List<UploadedFile> uploadedFiles = new ArrayList<>();
+
     public Knjiga() {
     }
 
@@ -85,6 +93,14 @@ public class Knjiga {
 
     public void setKategorije(List<Kategorija> kategorije) {
         this.kategorije = kategorije;
+    }
+
+    public List<UploadedFile> getUploadedFiles() {
+        return uploadedFiles;
+    }
+
+    public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
+        this.uploadedFiles = uploadedFiles;
     }
 
     @Override
